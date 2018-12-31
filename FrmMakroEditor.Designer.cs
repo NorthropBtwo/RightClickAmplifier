@@ -35,12 +35,14 @@
             this.cmdAddFunction = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtExtensions = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cboxPresets = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 29);
+            this.label1.Location = new System.Drawing.Point(25, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 0;
@@ -48,18 +50,18 @@
             // 
             // txtMakroName
             // 
-            this.txtMakroName.Location = new System.Drawing.Point(116, 29);
+            this.txtMakroName.Location = new System.Drawing.Point(116, 55);
             this.txtMakroName.Name = "txtMakroName";
             this.txtMakroName.Size = new System.Drawing.Size(209, 22);
             this.txtMakroName.TabIndex = 1;
             // 
             // cmdSaveMakro
             // 
-            this.cmdSaveMakro.Location = new System.Drawing.Point(605, 371);
+            this.cmdSaveMakro.Location = new System.Drawing.Point(456, 19);
             this.cmdSaveMakro.Name = "cmdSaveMakro";
-            this.cmdSaveMakro.Size = new System.Drawing.Size(75, 23);
+            this.cmdSaveMakro.Size = new System.Drawing.Size(113, 98);
             this.cmdSaveMakro.TabIndex = 2;
-            this.cmdSaveMakro.Text = "save";
+            this.cmdSaveMakro.Text = "save makro";
             this.cmdSaveMakro.UseVisualStyleBackColor = true;
             this.cmdSaveMakro.Click += new System.EventHandler(this.cmdSaveMakro_Click);
             // 
@@ -80,9 +82,9 @@
             // 
             // cmdAddFunction
             // 
-            this.cmdAddFunction.Location = new System.Drawing.Point(493, 166);
+            this.cmdAddFunction.Location = new System.Drawing.Point(456, 170);
             this.cmdAddFunction.Name = "cmdAddFunction";
-            this.cmdAddFunction.Size = new System.Drawing.Size(75, 23);
+            this.cmdAddFunction.Size = new System.Drawing.Size(113, 23);
             this.cmdAddFunction.TabIndex = 4;
             this.cmdAddFunction.Text = "add funtion";
             this.cmdAddFunction.UseVisualStyleBackColor = true;
@@ -104,11 +106,32 @@
             this.txtExtensions.Size = new System.Drawing.Size(209, 22);
             this.txtExtensions.TabIndex = 6;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 19);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 17);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "presets:";
+            // 
+            // cboxPresets
+            // 
+            this.cboxPresets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboxPresets.FormattingEnabled = true;
+            this.cboxPresets.Location = new System.Drawing.Point(116, 19);
+            this.cboxPresets.Name = "cboxPresets";
+            this.cboxPresets.Size = new System.Drawing.Size(209, 24);
+            this.cboxPresets.TabIndex = 8;
+            this.cboxPresets.SelectedIndexChanged += new System.EventHandler(this.cboxPresets_SelectedIndexChanged);
+            // 
             // FrmMakroEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(720, 636);
+            this.Controls.Add(this.cboxPresets);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.txtExtensions);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdAddFunction);
@@ -133,5 +156,7 @@
         private System.Windows.Forms.Button cmdAddFunction;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtExtensions;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox cboxPresets;
     }
 }

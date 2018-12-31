@@ -47,7 +47,7 @@
             // 
             this.cboxFunctionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxFunctionTypes.FormattingEnabled = true;
-            this.cboxFunctionTypes.Location = new System.Drawing.Point(34, 47);
+            this.cboxFunctionTypes.Location = new System.Drawing.Point(12, 26);
             this.cboxFunctionTypes.Name = "cboxFunctionTypes";
             this.cboxFunctionTypes.Size = new System.Drawing.Size(368, 24);
             this.cboxFunctionTypes.TabIndex = 1;

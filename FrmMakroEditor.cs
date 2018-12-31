@@ -22,15 +22,30 @@ namespace RightClickAmplifier
 
         private void FrmMakroEditor_Load(object sender, EventArgs e)
         {
-            txtMakroName.Text = newMakro.Name;
+
+            ShowMakro(newMakro);
+
+            //presets
+            cboxPresets.Items.Clear();
+            cboxPresets.Items.Add("Custom");
+            cboxPresets.SelectedIndex = 0;
+            foreach ( var preset in ContextFunction.GetAllPresets())
+            {
+                cboxPresets.Items.Add(preset);
+            }
+        }
+
+        private void ShowMakro(ContextMakro makro)
+        {
+            txtMakroName.Text = makro.Name;
             customListBox1.Items.Clear();
 
-            foreach(var function in  newMakro.Functions)
+            foreach (var function in makro.Functions)
             {
                 customListBox1.Items.Add(function);
             }
 
-            txtExtensions.Text = string.Join(" ", newMakro.FileExtensions);
+            txtExtensions.Text = string.Join(" ", makro.FileExtensions);
         }
 
 
@@ -63,7 +78,11 @@ namespace RightClickAmplifier
                 oldMakro.Functions.Add((ContextFunction)function);
             }
 
-            oldMakro.FileExtensions = new List<string>(txtExtensions.Text.Trim(' ').Split(' '));
+            oldMakro.FileExtensions = new List<CString>();
+            foreach(string extens in txtExtensions.Text.Trim(' ').Split(' '))
+            {
+                oldMakro.FileExtensions.Add(new CString(extens));
+            }
 
             this.Close();
         }
@@ -91,6 +110,19 @@ namespace RightClickAmplifier
             if (function != null)
             {
                 customListBox1.Items.Remove(function);
+            }
+        }
+
+        private void cboxPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboxPresets.SelectedIndex >= 0)
+            {
+                ContextMakro selMakro = cboxPresets.SelectedItem as ContextMakro;
+                if(selMakro != null)
+                {
+                    newMakro = selMakro;
+                    ShowMakro(newMakro);
+                }
             }
         }
     }

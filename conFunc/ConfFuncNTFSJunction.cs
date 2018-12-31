@@ -64,5 +64,18 @@ namespace RightClickAmplifier.conFunc
 
         }
 
+
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public override List<ContextMakro> GetPresets()
+        {
+            ContextMakro makro = new ContextMakro("CreateSoftLink");
+            makro.FileExtensions.Add(new CString("directory/Background"));
+            makro.Functions.Add(new ConfFuncNTFSJunction("newLink"));
+            return new List<ContextMakro>() { makro };
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
     }
 }

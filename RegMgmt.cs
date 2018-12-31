@@ -124,6 +124,7 @@ namespace RightClickAmplifier
 
                 if (shellstr != "")
                 {
+                    /*if you get an error here, start Visual studio with admin rights*/
                     using (RegistryKey shellKey = currentKey.OpenSubKey(shellstr, true))
                     {
                         string[] functionNames = shellKey.GetSubKeyNames();

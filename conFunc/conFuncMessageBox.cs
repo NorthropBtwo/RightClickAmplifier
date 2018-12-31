@@ -8,15 +8,15 @@ namespace RightClickAmplifier
 {
 
     [Serializable]
-    public class conFuncMessageBox : ContextFunction
+    public class ConFuncMessageBox : ContextFunction
     {
 
-        public conFuncMessageBox(string name) : base(name)
+        public ConFuncMessageBox(string name) : base(name)
         {
 
         }
 
-        public conFuncMessageBox() : base()
+        public ConFuncMessageBox() : base()
         {
 
         }
@@ -31,5 +31,18 @@ namespace RightClickAmplifier
         {
             return base.ToString() + " :" + "conFuncMessageBox";
         }
+
+
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public override List<ContextMakro> GetPresets()
+        {
+            ContextMakro makro = new ContextMakro("Test");
+            makro.FileExtensions.Add(new CString("*"));
+            makro.Functions.Add(new ConFuncMessageBox("HaliHalo"));
+            return new List<ContextMakro>() { makro };
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

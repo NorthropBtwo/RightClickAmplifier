@@ -61,23 +61,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="conFunc\ConfFuncNTFSJunction.cs" />
-    <Compile Include="conFunc\conFuncCopyAsPath.cs" />
-    <Compile Include="conFunc\conFuncMessageBox.cs" />
+    <Compile Include="conFunc\ConFuncCopyAsPath.cs" />
+    <Compile Include="conFunc\ConFuncMessageBox.cs" />
     <Compile Include="conFunc\ConFuncShowParameterList.cs" />
-    <Compile Include="conFunc\conFuncWordtoPDF.cs" />
+    <Compile Include="conFunc\ConFuncWordtoPDF.cs" />
     <Compile Include="conFunc\ContextFunction.cs" />
     <Compile Include="ContextMakro.cs" />
+    <Compile Include="CString.cs" />
     <Compile Include="CustomListBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CustomListBox.Designer.cs">
       <DependentUpon>CustomListBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMain.cs">
+    <Compile Include="FrmAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMain.Designer.cs">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <Compile Include="FrmAboutBox.Designer.cs">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmFunctionEditor.cs">
       <SubType>Form</SubType>
@@ -96,11 +103,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegMgmt.cs" />
     <Compile Include="SecurityMgmt.cs" />
+    <Compile Include="Updater\GithubUpdater.cs" />
+    <Compile Include="Updater\Updater.cs" />
     <EmbeddedResource Include="CustomListBox.resx">
       <DependentUpon>CustomListBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMain.resx">
-      <DependentUpon>frmMain.cs</DependentUpon>
+    <EmbeddedResource Include="FrmAboutBox.resx">
+      <DependentUpon>FrmAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmFunctionEditor.resx">
       <DependentUpon>FrmFunctionEditor.cs</DependentUpon>

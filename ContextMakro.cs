@@ -12,19 +12,21 @@ using System.Xml.Serialization;
 namespace RightClickAmplifier
 {
 
-    [Serializable]
-    public class ContextMakro : IXmlSerializable
+    [DataContract]
+    public class ContextMakro
     {
 
-        
-        public string Name { get; set; }
-        public List<ContextFunction> Functions { get; set; }
-        public List<string> FileExtensions { set; get; }
+        [DataMember]
+        public string Name;
+        [DataMember]
+        public List<ContextFunction> Functions;
+        [DataMember]
+        public List<CString> FileExtensions;
 
 
         public ContextMakro()
         {
-            init("unknown Function");
+            init("MakroText");
         }
 
         public ContextMakro(string name)
@@ -32,62 +34,49 @@ namespace RightClickAmplifier
             init(name);
         }
 
+        public ContextMakro(string name, List<string> fileExrensions, List<ContextFunction> functions)
+        {
+            init(name, fileExrensions, functions);
+        }
+
         private void init(string name)
         {
+            init(name, new List<string>(), new List<ContextFunction>());
+        }
+
+        private void init(string name, List<string> fileExtensions, List<ContextFunction> functions)
+        {
             this.Name = name;
-            Functions = new List<ContextFunction>();
-            FileExtensions = new List<string>();
+            Functions = new List<ContextFunction>(functions);
+            FileExtensions = new List<CString>();
+            foreach(var extens in fileExtensions)
+            {
+                FileExtensions.Add(new CString(extens));
+            }
         }
 
         public override string ToString()
         {
-            return Name;
-        }
-
-
-
-
-        public XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(XmlReader reader)
-        {
-            reader.MoveToContent();
-            Name = reader.GetAttribute("Name");
-            Boolean isEmptyElement = reader.IsEmptyElement;
-            reader.ReadStartElement();
-            if (!isEmptyElement)
-            {
-                var deserializer = new DataContractSerializer(Functions.GetType(), PlugInSystem.GetAllTypes(typeof(ContextFunction)));
-                Functions = (List<ContextFunction>)deserializer.ReadObject(reader);
-                if (reader.IsStartElement())
-                {
-                    var deserializer2 = new DataContractSerializer(FileExtensions.GetType());
-                    FileExtensions = (List<string>)deserializer2.ReadObject(reader);
-                }
-                reader.ReadEndElement();
-            }
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("Name", Name);
-            var serializer = new DataContractSerializer(Functions.GetType(), PlugInSystem.GetAllTypes(typeof(ContextFunction)) );
-            serializer.WriteObject(writer, Functions);
-            var serializerStringArray = new DataContractSerializer(FileExtensions.GetType());
-            serializerStringArray.WriteObject(writer, FileExtensions);
+            return Name + "   (" + string.Join("  ", FileExtensions) + ")";
         }
 
         public ContextMakro Clone()
         {
+            /*
             using (var stream = new MemoryStream())
             {
                 var formatter = new BinaryFormatter();
                 formatter.Serialize(stream, this);
                 stream.Position = 0;
                 return (ContextMakro)formatter.Deserialize(stream);
+            }*/
+
+            using (var stream = new MemoryStream())
+            {
+                var serializer = new DataContractSerializer(GetType(), PlugInSystem.GetAllTypes(typeof(ContextFunction)));
+                serializer.WriteObject(stream, this);
+                stream.Position = 0;
+                return (ContextMakro)serializer.ReadObject(stream);
             }
         }
 

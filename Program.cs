@@ -18,7 +18,7 @@ namespace RightClickAmplifier
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmMain());
+            Application.Run(new FrmMain());
         }
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]

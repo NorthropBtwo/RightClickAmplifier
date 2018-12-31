@@ -13,12 +13,13 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Runtime.InteropServices;
 using RightClickAmplifier.conFunc;
+using System.Diagnostics;
 
 namespace RightClickAmplifier
 {
 
 
-    public partial class frmMain : Form
+    public partial class FrmMain : Form
     {
 
 
@@ -31,7 +32,9 @@ namespace RightClickAmplifier
 
         string configXML;
 
-        public frmMain()
+        Updater.GithubUpdater updater = new Updater.GithubUpdater("https://api.github.com/repos/NorthropBtwo/RightClickAmplifier/releases/latest" , true);
+
+        public FrmMain()
         {
             InitializeComponent();
         }
@@ -43,8 +46,7 @@ namespace RightClickAmplifier
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-
-           this.Text = configXML = GetFileLocaation() + "\\settings42.xml";
+           configXML = GetFileLocaation() + "\\rightClickSettings.xml";
 
             if (File.Exists(configXML))
             {
@@ -52,17 +54,22 @@ namespace RightClickAmplifier
                 XDocument xml = XDocument.Load(configXML);
                 using (var reader = xml.CreateReader())
                 {
-                    // write xml into the writer
-                    var deserializer = new DataContractSerializer(makros.GetType());
-                    makros = ((List<ContextMakro>)deserializer.ReadObject(reader,false));
+                    try
+                    {
+                        var deserializer = new DataContractSerializer(makros.GetType(), PlugInSystem.GetAllTypes(typeof(ContextFunction)));
+                        makros = ((List<ContextMakro>)deserializer.ReadObject(reader, false));
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show("Unknown Makro Found: " + Environment.NewLine + Environment.NewLine + ex.Message);
+                    }
                 }
 
 
 
                 string[] args = Environment.GetCommandLineArgs();
 
-                //args = new string[] {"path", "aaaa" };
-                if (args.Length > 1)
+                if (args.Length > 1) //exectuted from right-click menu
                 {
                     string makroName = args[1];
                     List<ContextMakro> machingMakros =  makros.Where(x => x.Name == makroName).ToList();
@@ -73,19 +80,28 @@ namespace RightClickAmplifier
 
                     Environment.Exit(0);
                 }
-
-
             }
             else
             {
-                makros.AddRange(new ContextMakro[] { new ContextMakro("aaaa"), new ContextMakro("bb"), new ContextMakro("cc"), new ContextMakro("dd"), new ContextMakro("ee"), new ContextMakro("ff"), new ContextMakro("gg"), new ContextMakro("hh"), new ContextMakro("jj") });
+               // makros.AddRange(new ContextMakro[] { new ContextMakro("aaaa"), new ContextMakro("bb"), new ContextMakro("cc"), new ContextMakro("dd"), new ContextMakro("ee"), new ContextMakro("ff"), new ContextMakro("gg"), new ContextMakro("hh"), new ContextMakro("jj") });
             }
+
+#if !DEBUG
+            if (!SecurityMgmt.HasAdminRights())
+            {
+                SecurityMgmt.ReRunAsAdmin();
+            }
+#endif
 
             UpdateMakroView();
 
-
-
             OverwriteMakroBackup();
+
+            
+            if(!updater.IsUpToDate())
+            {
+                cmdUpdate.Visible = true;
+            }
         }
 
         private void OverwriteMakroBackup()
@@ -144,28 +160,17 @@ namespace RightClickAmplifier
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SaveXML_Click(object sender, EventArgs e)
         {
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.OmitXmlDeclaration = true;
-            settings.Indent = true;
-
-            XmlSerializerNamespaces namespaces = new XmlSerializerNamespaces();
-            namespaces.Add(string.Empty, string.Empty);
-
             XDocument xml = new XDocument();
             using (var writer = xml.CreateWriter())
             {
-                // write xml into the writer
-                var serializer = new DataContractSerializer(makros.GetType());
+                List<Type> knownTypes = PlugInSystem.GetAllTypes(typeof(ContextFunction));
+                knownTypes.Add(makros.GetType());
+                var serializer = new DataContractSerializer(makros.GetType(), knownTypes);
                 serializer.WriteObject(writer, makros);
-            }          
-
-            
+            }                
             xml.Save(configXML);
-
-
         }
 
         private void cmdSaveReg_Click(object sender, EventArgs e)
@@ -174,7 +179,7 @@ namespace RightClickAmplifier
             {
                 foreach(var fileExt in makro.FileExtensions)
                 {
-                    string fileType = RegMgmt.GetFileType(fileExt);
+                    string fileType = RegMgmt.GetFileType(fileExt.ToString());
                     RegMgmt.AddContextFunction(fileType, makro);
                 }
             }
@@ -217,7 +222,7 @@ namespace RightClickAmplifier
             {
                 foreach(var extension in makro.FileExtensions)
                 {
-                    string fileType = RegMgmt.GetFileType(extension);
+                    string fileType = RegMgmt.GetFileType(extension.ToString());
                     RegMgmt.RemoveContextFunction(fileType, makro.Name);
                 }
             }
@@ -225,7 +230,7 @@ namespace RightClickAmplifier
 
         private void cmd2pdf_Click(object sender, EventArgs e)
         {
-            ContextFunction conFunc = new conFuncWordtoPDF();
+            ContextFunction conFunc = new ConFuncWordtoPDF();
             conFunc.PerformAction(null, new string[] { "", "", @"C:\Users\Northrop\Desktop\temp\testwordsPDF eraer aasd2.docx" });
 
         }
@@ -234,7 +239,7 @@ namespace RightClickAmplifier
         {
             cmdFastClean_Click(sender, e);
             cmdSaveReg_Click(sender, e);
-            button1_Click(sender, e);
+            SaveXML_Click(sender, e);
         }
 
         private void grpMakros_ButtonEditClick(object sender, EventArgs e)
@@ -261,6 +266,29 @@ namespace RightClickAmplifier
         {
             ConfFuncNTFSJunction conf = new ConfFuncNTFSJunction();
             conf.PerformAction(null, null);
+        }
+
+        string newestVersion = Process.GetCurrentProcess().MainModule.FileName + ".temp";
+        string oldVersion = Process.GetCurrentProcess().MainModule.FileName + ".oldtemp";
+        string curVersion = Process.GetCurrentProcess().MainModule.FileName;
+
+        private void cmdUpdate_Click(object sender, EventArgs e)
+        {
+            updater.DownloadReleaseVersion(newestVersion);
+            File.Move(curVersion, oldVersion);
+            File.Move(newestVersion, curVersion);
+
+            if (File.Exists(curVersion))
+            {
+                Process.Start(curVersion);
+            }
+
+            Environment.Exit(0);
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            (new FrmAboutBox()).ShowDialog();
         }
     }
 

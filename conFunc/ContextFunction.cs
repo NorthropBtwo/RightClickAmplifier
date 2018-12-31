@@ -7,12 +7,13 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
+using static RightClickAmplifier.FrmFunctionEditor;
 
 namespace RightClickAmplifier
 {
 
     [Serializable]
-    public class ContextFunction : IXmlSerializable
+    public class ContextFunction
     {
 
         public virtual string Name { get; set; }
@@ -42,20 +43,31 @@ namespace RightClickAmplifier
             return Name;
         }
 
-        public XmlSchema GetSchema()
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public virtual List<ContextMakro> GetPresets()
         {
-            return null;
+            return new List<ContextMakro>(); 
         }
 
-        public void ReadXml(XmlReader reader)
+        public static List<ContextMakro> GetAllPresets()
         {
-            reader.MoveToContent();
-            Name = reader.GetAttribute("Name");
+            List<ContextMakro> presets = new List<ContextMakro>();
+            foreach (Type typ in PlugInSystem.GetAllMotherTypes(typeof(ContextFunction)))
+            {
+                ContextFunction func = Activator.CreateInstance(typ) as ContextFunction;
+                if(func != null)
+                {
+                    presets.AddRange(func.GetPresets());
+                }
+           
+            }
+
+            return presets;
         }
 
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteAttributeString("Name", Name);
-        }
+       
+
+        //--------------------------------------------------------------------------------------------------------------
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace RightClickAmplifier
 {
-    partial class frmMain
+    partial class FrmMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.cmdAddMakro = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -38,7 +39,14 @@
             this.cmd2pdf = new System.Windows.Forms.Button();
             this.cndSave = new System.Windows.Forms.Button();
             this.cmdCreateSoftLink = new System.Windows.Forms.Button();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.cmdUpdate = new System.Windows.Forms.ToolStripButton();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grpMakros = new RightClickAmplifier.CustomListBox();
+            this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdAddMakro
@@ -91,7 +99,7 @@
             this.cmdSave.Text = "save XML";
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Visible = false;
-            this.cmdSave.Click += new System.EventHandler(this.button1_Click);
+            this.cmdSave.Click += new System.EventHandler(this.SaveXML_Click);
             // 
             // cmdSaveReg
             // 
@@ -168,7 +176,53 @@
             this.cmdCreateSoftLink.TabIndex = 11;
             this.cmdCreateSoftLink.Text = "create Soft Link";
             this.cmdCreateSoftLink.UseVisualStyleBackColor = true;
+            this.cmdCreateSoftLink.Visible = false;
             this.cmdCreateSoftLink.Click += new System.EventHandler(this.cmdCreateSoftLink_Click);
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmdUpdate,
+            this.toolStripDropDownButton2,
+            this.toolStripDropDownButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(844, 35);
+            this.toolStrip1.TabIndex = 12;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // cmdUpdate
+            // 
+            this.cmdUpdate.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.cmdUpdate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.cmdUpdate.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
+            this.cmdUpdate.ForeColor = System.Drawing.Color.ForestGreen;
+            this.cmdUpdate.Image = ((System.Drawing.Image)(resources.GetObject("cmdUpdate.Image")));
+            this.cmdUpdate.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.cmdUpdate.Name = "cmdUpdate";
+            this.cmdUpdate.Size = new System.Drawing.Size(143, 32);
+            this.cmdUpdate.Text = "Update ready";
+            this.cmdUpdate.Visible = false;
+            this.cmdUpdate.Click += new System.EventHandler(this.cmdUpdate_Click);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(30, 32);
+            this.toolStripDropDownButton1.Text = "?";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(125, 26);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // grpMakros
             // 
@@ -183,11 +237,30 @@
             this.grpMakros.ButtonEditClick += new System.EventHandler(this.grpMakros_ButtonEditClick);
             this.grpMakros.ButtonDeleteClick += new System.EventHandler(this.grpMakros_ButtonDeleteClick);
             // 
-            // frmMain
+            // toolStripDropDownButton2
+            // 
+            this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveToolStripMenuItem});
+            this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
+            this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton2.Name = "toolStripDropDownButton2";
+            this.toolStripDropDownButton2.Size = new System.Drawing.Size(46, 32);
+            this.toolStripDropDownButton2.Text = "File";
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.cndSave_Click);
+            // 
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(844, 473);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.cmdCreateSoftLink);
             this.Controls.Add(this.grpMakros);
             this.Controls.Add(this.cndSave);
@@ -200,10 +273,12 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.cmdAddMakro);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "frmMain";
+            this.Name = "FrmMain";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -221,6 +296,12 @@
         private System.Windows.Forms.Button cndSave;
         private CustomListBox grpMakros;
         private System.Windows.Forms.Button cmdCreateSoftLink;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton cmdUpdate;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton2;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
     }
 }
 

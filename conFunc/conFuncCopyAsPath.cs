@@ -8,15 +8,15 @@ namespace RightClickAmplifier
 {
 
     [Serializable]
-    public class conFuncCopyAsPath : ContextFunction
+    public class ConFuncCopyAsPath : ContextFunction
     {
 
-        public conFuncCopyAsPath(string name) : base(name)
+        public ConFuncCopyAsPath(string name) : base(name)
         {
 
         }
 
-        public conFuncCopyAsPath() : base()
+        public ConFuncCopyAsPath() : base()
         {
 
         }
@@ -31,6 +31,18 @@ namespace RightClickAmplifier
         {
             return base.ToString() + " :" + "Copy As Path";
         }
+
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public override List<ContextMakro> GetPresets()
+        {
+            ContextMakro makro = new ContextMakro("CopyAsPath");
+            makro.FileExtensions.Add(new CString("*"));
+            makro.Functions.Add(new ConFuncCopyAsPath("CopyPath"));
+            return new List<ContextMakro>() { makro };
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
 
     }
 }

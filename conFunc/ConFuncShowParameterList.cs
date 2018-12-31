@@ -29,5 +29,18 @@ namespace RightClickAmplifier.conFunc
             MessageBox.Show(string.Join(Environment.NewLine,parameters));
         }
 
+
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public override List<ContextMakro> GetPresets()
+        {
+            ContextMakro makro = new ContextMakro("ShowParameter");
+            makro.FileExtensions.Add(new CString("* directory directory/Background"));
+            makro.Functions.Add(new ConFuncShowParameterList("showParams"));
+            return new List<ContextMakro>() { makro };
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
     }
 }

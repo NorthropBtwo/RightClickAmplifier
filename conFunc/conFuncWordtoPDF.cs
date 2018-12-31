@@ -9,15 +9,15 @@ namespace RightClickAmplifier
 {
 
     [Serializable]
-    class conFuncWordtoPDF : ContextFunction
+    class ConFuncWordtoPDF : ContextFunction
     {
 
-        public conFuncWordtoPDF() : base()
+        public ConFuncWordtoPDF() : base()
         {
 
         }
 
-        public conFuncWordtoPDF(string name) : base (name)
+        public ConFuncWordtoPDF(string name) : base (name)
         {
 
         }
@@ -38,9 +38,21 @@ namespace RightClickAmplifier
             return base.ToString() + " :" + "WordtoPDF";
         }
 
+        //--Presets------------------------------------------------------------------------------------------------------------
+
+        public override List<ContextMakro> GetPresets()
+        {
+            ContextMakro makro = new ContextMakro("Word2Pdf");
+            makro.FileExtensions.Add(new CString(".docx"));
+            makro.Functions.Add(new ConFuncWordtoPDF("2pdf"));
+            return new List<ContextMakro>() { makro };
+        }
+
+        //--------------------------------------------------------------------------------------------------------------
+
     }
 
 
 
-   
+
 }
