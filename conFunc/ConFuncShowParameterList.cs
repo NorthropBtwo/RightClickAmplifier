@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace RightClickAmplifier.conFunc
+namespace RightClickAmplifier
 {
     [Serializable]
     public class ConFuncShowParameterList : ContextFunction

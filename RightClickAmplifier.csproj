@@ -60,12 +60,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CMD.cs" />
+    <Compile Include="conFunc\ConfFuncRelativNTFSJunction.cs" />
     <Compile Include="conFunc\ConfFuncNTFSJunction.cs" />
     <Compile Include="conFunc\ConFuncCopyAsPath.cs" />
     <Compile Include="conFunc\ConFuncMessageBox.cs" />
     <Compile Include="conFunc\ConFuncShowParameterList.cs" />
     <Compile Include="conFunc\ConFuncWordtoPDF.cs" />
     <Compile Include="conFunc\ContextFunction.cs" />
+    <Compile Include="conFunc\ParamTypeAttribute.cs" />
     <Compile Include="ContextMakro.cs" />
     <Compile Include="CString.cs" />
     <Compile Include="CustomListBox.cs">
@@ -98,6 +101,12 @@
     <Compile Include="FrmMakroEditor.Designer.cs">
       <DependentUpon>FrmMakroEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="ParamAttributeEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ParamAttributeEditor.Designer.cs">
+      <DependentUpon>ParamAttributeEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="PlugInSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMakroEditor.resx">
       <DependentUpon>FrmMakroEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParamAttributeEditor.resx">
+      <DependentUpon>ParamAttributeEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

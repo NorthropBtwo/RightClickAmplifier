@@ -1,30 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Windows.Forms;
 
 namespace RightClickAmplifier
 {
 
-    [Serializable]
+    [DataContract]
     public class ConFuncMessageBox : ContextFunction
     {
 
+        [DataMember]
+        [ParamTypeAttribute]
+        public string Message;
+
+        [DataMember]
+        [ParamTypeAttribute]
+        public string Message2;
+
+
+        //--Constructors------------------------------------------------------------------------------------------------------------
+
         public ConFuncMessageBox(string name) : base(name)
         {
-
+            init();
         }
 
         public ConFuncMessageBox() : base()
         {
-
+            init();
         }
 
+        [OnDeserializing]
+        private void OnDeserializing(StreamingContext context)
+        {
+            init();
+        }
+
+        private void init()
+        {
+            Message = "testMessage";
+            Message2 = "testMessage";
+        }
+
+        //--Function------------------------------------------------------------------------------------------------------------
 
         public override void PerformAction(ContextMakro currentMakro, string[] parameters)
         {
-            MessageBox.Show("conFuncMessageBox");
+            MessageBox.Show(Message);
         }
 
         public override string ToString()

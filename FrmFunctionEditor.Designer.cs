@@ -28,23 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.cboxFunctionTypes = new System.Windows.Forms.ComboBox();
             this.cmdSave = new System.Windows.Forms.Button();
-            this.cmdDelete = new System.Windows.Forms.Button();
+            this.paramAttributeEditor = new RightClickAmplifier.ParamAttributeEditor();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 16;
-            this.listBox1.Location = new System.Drawing.Point(229, 161);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 84);
-            this.listBox1.TabIndex = 0;
             // 
             // cboxFunctionTypes
             // 
+            this.cboxFunctionTypes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cboxFunctionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboxFunctionTypes.FormattingEnabled = true;
             this.cboxFunctionTypes.Location = new System.Drawing.Point(12, 26);
@@ -55,7 +47,8 @@
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(528, 391);
+            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSave.Location = new System.Drawing.Point(403, 27);
             this.cmdSave.Name = "cmdSave";
             this.cmdSave.Size = new System.Drawing.Size(75, 23);
             this.cmdSave.TabIndex = 2;
@@ -63,25 +56,26 @@
             this.cmdSave.UseVisualStyleBackColor = true;
             this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
             // 
-            // cmdDelete
+            // paramAttributeEditor
             // 
-            this.cmdDelete.Location = new System.Drawing.Point(447, 391);
-            this.cmdDelete.Name = "cmdDelete";
-            this.cmdDelete.Size = new System.Drawing.Size(75, 23);
-            this.cmdDelete.TabIndex = 3;
-            this.cmdDelete.Text = "delete";
-            this.cmdDelete.UseVisualStyleBackColor = true;
-            this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
+            this.paramAttributeEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.paramAttributeEditor.GroupText = "Function Settings";
+            this.paramAttributeEditor.Item = null;
+            this.paramAttributeEditor.Location = new System.Drawing.Point(12, 56);
+            this.paramAttributeEditor.Name = "paramAttributeEditor";
+            this.paramAttributeEditor.Size = new System.Drawing.Size(466, 296);
+            this.paramAttributeEditor.TabIndex = 6;
             // 
             // FrmFunctionEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(641, 448);
-            this.Controls.Add(this.cmdDelete);
+            this.ClientSize = new System.Drawing.Size(540, 364);
+            this.Controls.Add(this.paramAttributeEditor);
             this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.cboxFunctionTypes);
-            this.Controls.Add(this.listBox1);
             this.Name = "FrmFunctionEditor";
             this.Text = "FrmFunctionEditor";
             this.Load += new System.EventHandler(this.FrmFunctionEditor_Load);
@@ -90,10 +84,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ComboBox cboxFunctionTypes;
         private System.Windows.Forms.Button cmdSave;
-        private System.Windows.Forms.Button cmdDelete;
+        private ParamAttributeEditor paramAttributeEditor;
     }
 }

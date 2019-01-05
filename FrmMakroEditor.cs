@@ -101,7 +101,11 @@ namespace RightClickAmplifier
 
         private void cmdAddFunction_Click(object sender, EventArgs e)
         {
-            customListBox1.Items.Add(new ContextFunction());
+            ContextFunction newConFunc = (new FrmFunctionEditor()).ShowDialog(null);
+            if (newConFunc != null)
+            {
+                customListBox1.Items.Add(newConFunc);
+            }
         }
 
         private void customListBox1_ButtonDeleteClick(object sender, EventArgs e)

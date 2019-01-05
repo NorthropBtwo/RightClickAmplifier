@@ -42,7 +42,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 55);
+            this.label1.Location = new System.Drawing.Point(25, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 0;
@@ -50,7 +50,7 @@
             // 
             // txtMakroName
             // 
-            this.txtMakroName.Location = new System.Drawing.Point(116, 55);
+            this.txtMakroName.Location = new System.Drawing.Point(116, 59);
             this.txtMakroName.Name = "txtMakroName";
             this.txtMakroName.Size = new System.Drawing.Size(209, 22);
             this.txtMakroName.TabIndex = 1;
@@ -67,9 +67,8 @@
             // 
             // customListBox1
             // 
-            this.customListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.customListBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.customListBox1.GroupText = "Functions";
             this.customListBox1.Items.Add("asd");
             this.customListBox1.Items.Add("wer");
@@ -129,7 +128,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(720, 636);
+            this.ClientSize = new System.Drawing.Size(616, 636);
             this.Controls.Add(this.cboxPresets);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtExtensions);

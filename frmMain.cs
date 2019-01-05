@@ -12,7 +12,6 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Runtime.InteropServices;
-using RightClickAmplifier.conFunc;
 using System.Diagnostics;
 
 namespace RightClickAmplifier
@@ -212,7 +211,7 @@ namespace RightClickAmplifier
                     RegMgmt.RemoveContextFunction(fileType, enbaledFunction);
                 }
             }
-          
+            MessageBox.Show("Successfully cleaned up registry");
         }
 
 
@@ -240,6 +239,7 @@ namespace RightClickAmplifier
             cmdFastClean_Click(sender, e);
             cmdSaveReg_Click(sender, e);
             SaveXML_Click(sender, e);
+            MessageBox.Show("Successfully saved");
         }
 
         private void grpMakros_ButtonEditClick(object sender, EventArgs e)
@@ -264,7 +264,7 @@ namespace RightClickAmplifier
 
         private void cmdCreateSoftLink_Click(object sender, EventArgs e)
         {
-            ConfFuncNTFSJunction conf = new ConfFuncNTFSJunction();
+            ConfFuncRelativNTFSJunction conf = new ConfFuncRelativNTFSJunction();
             conf.PerformAction(null, null);
         }
 

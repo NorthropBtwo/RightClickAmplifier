@@ -12,10 +12,10 @@ using static RightClickAmplifier.FrmFunctionEditor;
 namespace RightClickAmplifier
 {
 
-    [Serializable]
+    [DataContract]
     public class ContextFunction
     {
-
+        [DataMember(Name = "Name")]
         public virtual string Name { get; set; }
 
         public ContextFunction()

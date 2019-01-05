@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,9 +13,8 @@ namespace RightClickAmplifier
     public partial class FrmFunctionEditor : Form
     {
 
-        ContextFunction confunc;
+        ContextFunction oldConfunc;
         ContextFunction newConfunc;
-
 
         List<Type> types = new List<Type>();
 
@@ -26,11 +26,16 @@ namespace RightClickAmplifier
         private void FrmFunctionEditor_Load(object sender, EventArgs e)
         {
             TypeObject activeConfuncType = null;
+            if (oldConfunc == null)
+            {
+                cboxFunctionTypes.Items.Add("select function");
+                cboxFunctionTypes.SelectedIndex = 0;
+            }
             foreach (Type typ in PlugInSystem.GetAllMotherTypes(typeof(ContextFunction)))
             {
                 TypeObject confuncType = new TypeObject(typ);
                 cboxFunctionTypes.Items.Add(confuncType);
-                if(confunc!= null && typ == confunc.GetType())
+                if(oldConfunc!= null && typ == oldConfunc.GetType())
                 {
                     activeConfuncType = confuncType;
                 }
@@ -38,7 +43,7 @@ namespace RightClickAmplifier
 
             if(activeConfuncType!= null)
             {
-                cboxFunctionTypes.SelectedItem = activeConfuncType;
+                cboxFunctionTypes.SelectedIndex = cboxFunctionTypes.Items.IndexOf(activeConfuncType);
             }
         }
 
@@ -46,20 +51,47 @@ namespace RightClickAmplifier
 
         public ContextFunction ShowDialog(ContextFunction editFunc)
         {
-            confunc = editFunc;
+            oldConfunc = editFunc;
+            if (oldConfunc == null)
+            {
+                newConfunc = null;
+            }
+            else
+            {
+                newConfunc = oldConfunc;
+            }
+
             base.ShowDialog();
-            return confunc;
+            return oldConfunc;
         }
 
         private void cboxFunctionTypes_SelectedIndexChanged(object sender, EventArgs e)
         {
+            paramAttributeEditor.Item = null;
             int selIdx = cboxFunctionTypes.SelectedIndex;
             if (selIdx >= 0)
             {
-                Type typeToInstantiate = (cboxFunctionTypes.Items[selIdx] as TypeObject).Typ;
-                newConfunc = Activator.CreateInstance(typeToInstantiate) as ContextFunction;
+                TypeObject typeObjectToInstantiate = (cboxFunctionTypes.Items[selIdx] as TypeObject);
+                if (typeObjectToInstantiate != null)
+                {
+                    Type typeToInstantiate = typeObjectToInstantiate.Typ;
+                    if (oldConfunc != null && oldConfunc.GetType() == typeToInstantiate)
+                    {
+                        newConfunc = oldConfunc;
+                    }
+                    else
+                    {
+                        newConfunc = Activator.CreateInstance(typeToInstantiate) as ContextFunction;
+                    }
+
+                    paramAttributeEditor.Item = newConfunc;         
+                }
+                else
+                {
+                    newConfunc = null;
+                }
             }
-           
+
         }
 
 
@@ -82,13 +114,13 @@ namespace RightClickAmplifier
 
         private void cmdSave_Click(object sender, EventArgs e)
         {
-            confunc = newConfunc;
+            oldConfunc = newConfunc;
             this.Close();
         }
 
         private void cmdDelete_Click(object sender, EventArgs e)
         {
-            confunc = null;
+            oldConfunc = null;
             this.Close();
         }
     }

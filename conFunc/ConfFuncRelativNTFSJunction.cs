@@ -11,23 +11,28 @@ using System.Windows.Forms;
 namespace RightClickAmplifier
 {
     [Serializable]
-    public class ConfFuncNTFSJunction : ContextFunction
+    public class ConfFuncRelativNTFSJunction : ContextFunction
     {
-
+        
         [DllImport("kernel32.dll")]
         static extern bool CreateSymbolicLink(
         string lpSymlinkFileName, string lpTargetFileName, uint dwFlags);
-
         const uint SYMBLOC_LINK_FLAG_FILE = 0x0;
         const uint SYMBLOC_LINK_FLAG_DIRECTORY = 0x1;
 
+            /*
+        [DllImport("kernel32.dll", EntryPoint = "CreateSymbolicLinkW", CharSet = CharSet.Unicode, SetLastError = true)]
+        private static extern bool CreateSymbolicLink([In] string lpSymlinkFileName, [In] string lpTargetFileName, [In] int dwFlags);
+        private const int SYMBOLIC_LINK_FLAG_DIRECTORY = 0x1;
+        */
 
-        public ConfFuncNTFSJunction() : base()
+
+        public ConfFuncRelativNTFSJunction() : base()
         {
 
         }
 
-        public ConfFuncNTFSJunction(string name) : base(name)
+        public ConfFuncRelativNTFSJunction(string name) : base(name)
         {
 
         }
@@ -39,13 +44,13 @@ namespace RightClickAmplifier
 
         public override void PerformAction(ContextMakro currentMakro, string[] parameters)
         {
-            if(!SecurityMgmt.HasAdminRights())
+            if (!SecurityMgmt.HasAdminRights())
             {
                 SecurityMgmt.ReRunAsAdmin();
             }
 
             FolderBrowserDialog selFolder = new FolderBrowserDialog();
-            selFolder.SelectedPath =  Directory.GetCurrentDirectory();
+            selFolder.SelectedPath = Directory.GetCurrentDirectory();
 
             if (selFolder.ShowDialog() == DialogResult.OK)
             {
@@ -54,7 +59,15 @@ namespace RightClickAmplifier
 
                 try
                 {
-                    CreateSymbolicLink(wd + "\\NewLink", selFolder.SelectedPath, SYMBLOC_LINK_FLAG_DIRECTORY);
+                    Uri relativePath = new Uri(wd).MakeRelativeUri(new Uri(selFolder.SelectedPath));
+                     CreateSymbolicLink(wd + "\\NewLink", "..\\" + relativePath.ToString(), SYMBLOC_LINK_FLAG_DIRECTORY);
+
+                    /*
+                    string link = wd + "\\NewLink";
+                    string target = "..\\" + relativePath.ToString();
+                    MessageBox.Show("mklink " + "/D" + " \"" + link + "\" \"" + target + "\"");
+                    string response = CMD.Execute("mklink " + "/D" + " \"" + link + "\" \"" + target + "\"");
+                    MessageBox.Show(response);*/
                 }
                 catch (Exception ex)
                 {
@@ -69,9 +82,9 @@ namespace RightClickAmplifier
 
         public override List<ContextMakro> GetPresets()
         {
-            ContextMakro makro = new ContextMakro("CreateSoftLink");
+            ContextMakro makro = new ContextMakro("CreateRelativeSoftLink");
             makro.FileExtensions.Add(new CString("directory/Background"));
-            makro.Functions.Add(new ConfFuncNTFSJunction("newLink"));
+            makro.Functions.Add(new ConfFuncRelativNTFSJunction("newRelativeLink"));
             return new List<ContextMakro>() { makro };
         }
 
