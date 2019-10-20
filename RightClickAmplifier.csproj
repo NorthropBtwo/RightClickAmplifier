@@ -64,8 +64,10 @@
     <Compile Include="conFunc\ConfFuncRelativNTFSJunction.cs" />
     <Compile Include="conFunc\ConfFuncNTFSJunction.cs" />
     <Compile Include="conFunc\ConFuncCopyAsPath.cs" />
+    <Compile Include="conFunc\ConFuncExceltoPDF.cs" />
     <Compile Include="conFunc\ConFuncMessageBox.cs" />
     <Compile Include="conFunc\ConFuncShowParameterList.cs" />
+    <Compile Include="conFunc\ConFuncStartProcess.cs" />
     <Compile Include="conFunc\ConFuncWordtoPDF.cs" />
     <Compile Include="conFunc\ContextFunction.cs" />
     <Compile Include="conFunc\ParamTypeAttribute.cs" />
@@ -113,6 +115,7 @@
     <Compile Include="RegMgmt.cs" />
     <Compile Include="SecurityMgmt.cs" />
     <Compile Include="Updater\GithubUpdater.cs" />
+    <Compile Include="Updater\OfflineUpdater.cs" />
     <Compile Include="Updater\Updater.cs" />
     <EmbeddedResource Include="CustomListBox.resx">
       <DependentUpon>CustomListBox.cs</DependentUpon>
@@ -178,6 +181,15 @@
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
       <VersionMajor>2</VersionMajor>
       <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
       <Lcid>0</Lcid>
       <WrapperTool>primary</WrapperTool>
       <Isolated>False</Isolated>

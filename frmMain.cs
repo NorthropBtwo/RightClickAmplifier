@@ -31,7 +31,7 @@ namespace RightClickAmplifier
 
         string configXML;
 
-        Updater.GithubUpdater updater = new Updater.GithubUpdater("https://api.github.com/repos/NorthropBtwo/RightClickAmplifier/releases/latest" , true);
+        Updater.Updater updater = Updater.Updater.GetActiveUpdater("https://api.github.com/repos/NorthropBtwo/RightClickAmplifier/releases/latest" , true);
 
         public FrmMain()
         {
@@ -96,11 +96,21 @@ namespace RightClickAmplifier
 
             OverwriteMakroBackup();
 
-            
-            if(!updater.IsUpToDate())
+            try
             {
-                cmdUpdate.Visible = true;
+                if(File.Exists(oldVersion))
+                {
+                    File.Delete(oldVersion);
+                }
+
+                if (!updater.IsUpToDate())
+                {
+                    cmdUpdate.Visible = true;
+                }
             }
+            catch (Exception)
+            {
+            } 
         }
 
         private void OverwriteMakroBackup()

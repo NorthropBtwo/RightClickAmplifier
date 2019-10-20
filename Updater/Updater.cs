@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using System.IO;
 
 namespace RightClickAmplifier.Updater
 {
@@ -15,6 +16,7 @@ namespace RightClickAmplifier.Updater
         Version asVersion;
         string suffixVersion = "";
 
+        protected const string updaterConfigFile = "rightClickUpdater.txt";
 
         public class Release
         {
@@ -53,6 +55,18 @@ namespace RightClickAmplifier.Updater
         public virtual string DownloadReleaseVersion(string fileName)
         {
             return "";
+        }
+
+        public static Updater GetActiveUpdater(string wwwLatestRelease, bool isBetaVersion = false)
+        {
+            if(File.Exists(updaterConfigFile))
+            {
+                return new OfflineUpdater(wwwLatestRelease, isBetaVersion);
+            }
+            else
+            {
+                return new GithubUpdater(wwwLatestRelease, isBetaVersion);
+            }
         }
     }
 }
