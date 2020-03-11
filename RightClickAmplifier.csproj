@@ -66,6 +66,7 @@
     <Compile Include="conFunc\ConFuncCopyAsPath.cs" />
     <Compile Include="conFunc\ConFuncExceltoPDF.cs" />
     <Compile Include="conFunc\ConFuncMessageBox.cs" />
+    <Compile Include="conFunc\ConFuncRunOnCmd.cs" />
     <Compile Include="conFunc\ConFuncShowParameterList.cs" />
     <Compile Include="conFunc\ConFuncStartProcess.cs" />
     <Compile Include="conFunc\ConFuncWordtoPDF.cs" />
