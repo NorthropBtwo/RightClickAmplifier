@@ -63,6 +63,7 @@
     <Compile Include="CMD.cs" />
     <Compile Include="conFunc\ConfFuncRelativNTFSJunction.cs" />
     <Compile Include="conFunc\ConfFuncNTFSJunction.cs" />
+    <Compile Include="conFunc\ConFuncCheckDayLightTime.cs" />
     <Compile Include="conFunc\ConFuncCopyAsPath.cs" />
     <Compile Include="conFunc\ConFuncExceltoPDF.cs" />
     <Compile Include="conFunc\ConFuncMessageBox.cs" />
